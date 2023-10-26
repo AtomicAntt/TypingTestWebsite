@@ -24,18 +24,39 @@ body{
     border-radius: 10px;
 }
 
-#words .character-span {
+/* #words .character-span { */
     /* margin-right: -5px; */
-    display: inline-block;
+    /* display: inline-block; */
     /* padding: 5px;
     margin: 5px; */
-}
+/* } */
 
 #words .spacer{
     padding-left: 1px;
 }
 
-#input{
+#words .active{
+    text-decoration: underline;
+}
+
+#words .correct{
+    color: green;
+}
+
+#words .wrong{
+    color: red;
+}
+
+#words .superwrong{
+    color: rgb(121, 3, 3);
+}
+
+#input-field{
+    opacity: 0;
+    position: absolute;
+}
+
+/* #input{
     width: 100%;
     resize: none;
-}
+} */
