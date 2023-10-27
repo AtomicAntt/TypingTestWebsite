@@ -54,9 +54,23 @@ body{
 #input-field{
     opacity: 0;
     position: absolute;
+    z-index: -100;
 }
 
 /* #input{
     width: 100%;
     resize: none;
 } */
+
+.retry-button-container{
+    margin-bottom: 10px;
+}
+
+#retry-button{
+    cursor: pointer;
+}
+
+.hidden{
+    display: none;
+}
+
