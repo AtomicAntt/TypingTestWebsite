@@ -9,6 +9,52 @@ let started = false;
 let completed = false;
 let startTime;
 
+const apiUrl = "https://jsonplaceholder.typicode.com/posts/";
+
+async function generateRandomSentence(){
+    try{
+        const randomNum = Math.floor(Math.random() * (100 - 1 + 1)) + 1; // from 1-100
+        const response = await fetch(apiUrl + randomNum);
+
+        if (!response.ok){
+            throw new Error('request failed');
+        }
+
+        const data = await response.json();
+        const randomSentence = data.title;
+
+        console.log(randomSentence);
+
+        return randomSentence;
+    }
+    catch(error){
+        console.error('Error ', error);
+        return "error";
+    }
+    // const randomNum = Math.floor(Math.random() * (100 - 1 + 1)) + 1; // from 1-100
+
+    // fetch(apiUrl+randomNum)
+    //     .then(response => {
+    //         if (response.ok) {
+    //             return response.json();
+    //         }
+    //         else {
+    //             throw new Error('request failed');
+    //         }
+    //     })
+    //     .then(data => {
+    //         console.log("the data: " + data);
+    //         randomSentence = data.title;
+    //         console.log("the title: " + randomSentence);
+    //     })
+    //     .catch(error => {
+    //         console.error('Error: ', error);
+    //     });
+
+
+    // return randomSentence;
+}
+
 
 const wordStrings = [
     "the quick brown fox jumps over the lazy dog",
@@ -16,9 +62,23 @@ const wordStrings = [
     "the sun is setting over the horizon painting the sky with shades of orange and pink",
     "a gentle breeze rustled the leaves of the trees creating a soothing melody"
 ];
-let chosenWord = wordStrings[0];
 
-generateSpanOfWords(chosenWord);
+let chosenWord;
+
+
+async function generateWordsAndPlaceThem(){
+    try {
+        chosenWord = await generateRandomSentence();
+        generateSpanOfWords(chosenWord);
+
+    } catch (error) {
+        console.error('Error: ', error);
+    }
+}
+
+generateWordsAndPlaceThem();
+
+// generateSpanOfWords(chosenWord);
 
 function generateSpanOfWords(wordString){
     for (i = 0; i < wordString.length; i++){
@@ -97,7 +157,7 @@ function updateText(){
 function resetAll(){
     started = false;
     completed = false;
-    chosenWord = wordStrings[Math.floor(Math.random() * wordStrings.length)];
+    // chosenWord = wordStrings[Math.floor(Math.random() * wordStrings.length)];
     inputField.value = "";
 
     while (words.firstChild) {
@@ -106,7 +166,8 @@ function resetAll(){
     wpmCounter.classList.add("hidden");
     retryButton.classList.add("hidden");
     accuracyMeter.classList.add("hidden");
-    generateSpanOfWords(chosenWord);
+    // generateSpanOfWords(chosenWord);
+    generateWordsAndPlaceThem();
 }
 
 function calculateAccuracy(){
